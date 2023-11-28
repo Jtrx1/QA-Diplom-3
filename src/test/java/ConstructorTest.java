@@ -7,14 +7,16 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-
 import java.util.concurrent.TimeUnit;
 
 import static org.example.Settings.SITE_URL;
+import static org.example.Settings.THE_LOWEST_ELEMENT;
+
 @DisplayName("Тесты на переходы к разделам: Булки, Соусы, Начинки")
 
 public class ConstructorTest{
     protected WebDriver driver;
+    private String expected;
     @Before
     public void init(){
         driver = WebBrowser.get();
@@ -36,6 +38,7 @@ public class ConstructorTest{
     @DisplayName("Переход к разделу Соусы")
     public void checkSauceFieldTest(){
         MainPage mainPage=new MainPage(driver);
+        mainPage.scrollToLowestElemet(THE_LOWEST_ELEMENT);
         mainPage.clickSauceButton();
         Assert.assertTrue(driver.findElement(mainPage.getSaucefield()).isDisplayed());
     }
@@ -43,9 +46,9 @@ public class ConstructorTest{
     @Test
     @Step("Переход к разделу Булки")
     @DisplayName("Переход к разделу Булки")
-    public void checkBunFieldTest(){
+    public void checkBunFieldTest() throws InterruptedException {
         MainPage mainPage=new MainPage(driver);
-        mainPage.scrollToIngredientField();
+        mainPage.scrollToLowestElemet(THE_LOWEST_ELEMENT);
         mainPage.clickBunButton();
         Assert.assertTrue(driver.findElement(mainPage.getBunField()).isDisplayed());
     }
